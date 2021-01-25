@@ -1,0 +1,24 @@
+
+}
+java:S1450&"[Remove the "recyclerView" field and declare it as a local variable in the relevant methods.(¿á© ıÿÿÿÿ8â†£Õó.
+o	java:S116$"SRename this field "DATABASE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù­™8ü˜èÕó.
+_
+java:S1128"BRemove this unused import 'androidx.appcompat.view.menu.MenuView'.(È›¬8¡á–Ôó.
+u
+java:S1450'"XRemove the "addButton" field and declare it as a local variable in the relevant methods.(”àÃé8…ÛÍÕó.
+]	java:S125;"<This block of commented-out lines of code should be removed.(…çä¨üÿÿÿÿ8—Ù–Õó.
+E
+java:S1185*"(Remove this method to simply inherit it.(ßìê¯8ã¤äÓó.
+c
+java:S1128"ARemove this unused import 'androidx.lifecycle.ViewModelProvider'.(ª´÷©øÿÿÿÿ8â†£Õó.
+E
+java:S1604A"(Make this anonymous inner class a lambda(Ò„‡¬8¥ÅÎÕó.
+Z
+java:S1128
+"8Remove this unused import 'androidx.lifecycle.Observer'.(ÒÁˆÉşÿÿÿÿ8â†£Õó.
+`
+java:S1128"CRemove this unused import 'com.example.timerangerv2.TaskViewModel'.(ã™é¥8â†£Õó.
+T
+java:S1135:"2Complete the task associated to this TODO comment.(´ßÒÕüÿÿÿÿ8¡ÈæÔó.
+_
+java:S1128"BRemove this unused import 'com.example.timerangerv2.MainActivity'.(ŞÈæ8¼ÆèÕó.

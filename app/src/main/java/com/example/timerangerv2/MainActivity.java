@@ -9,9 +9,11 @@ import android.view.MenuItem;
 import com.example.timerangerv2.fragments.HomeFragment;
 import com.example.timerangerv2.fragments.TodoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
