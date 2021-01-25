@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_menu_home"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"/>
+    <item
+        android:id="@+id/bottom_menu_daily"
+        android:title="Dailies"
+        android:icon="@drawable/ic_baseline_today_24"/>
+    <item
+        android:id="@+id/bottom_menu_todo"
+        android:title="To-do"
+        android:icon="@drawable/ic_baseline_list_24"/>
+    <item
+        android:id="@+id/bottom_menu_habits"
+        android:title="Habits"
+        android:icon="@drawable/ic_baseline_iso_24"/>
+    <item
+        android:id="@+id/bottom_menu_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+
+</menu>
