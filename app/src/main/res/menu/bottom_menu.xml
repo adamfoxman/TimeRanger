@@ -6,16 +6,12 @@
         android:icon="@drawable/ic_baseline_home_24"/>
     <item
         android:id="@+id/bottom_menu_daily"
-        android:title="Dailies"
-        android:icon="@drawable/ic_baseline_today_24"/>
+        android:title="Habits"
+        android:icon="@drawable/ic_baseline_add_reaction_24"/>
     <item
         android:id="@+id/bottom_menu_todo"
         android:title="To-do"
-        android:icon="@drawable/ic_baseline_list_24"/>
-    <item
-        android:id="@+id/bottom_menu_habits"
-        android:title="Habits"
-        android:icon="@drawable/ic_baseline_iso_24"/>
+        android:icon="@drawable/ic_baseline_list_24"/>>
     <item
         android:id="@+id/bottom_menu_settings"
         android:title="Settings"

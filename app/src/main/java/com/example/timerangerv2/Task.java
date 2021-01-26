@@ -29,6 +29,15 @@ public class Task implements DatabaseReference.CompletionListener {
     private boolean positive;
     private boolean negative;
     private boolean completed;
+    private boolean important;
+
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
 
     public Task(String title)
     {

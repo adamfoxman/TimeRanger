@@ -18,11 +18,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.timerangerv2.MainActivity;
 import com.example.timerangerv2.R;
 import com.example.timerangerv2.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +38,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.SystemClock.sleep;
+
 
 public class TodoFragment extends Fragment {
 
@@ -45,15 +49,20 @@ public class TodoFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton addButton;
     private CheckBox doneCheckBox;
+    private CheckBox importantCheckBox;
     private EditText title;
     private EditText description;
-    private AlertDialog.Builder dialog;
+    private AlertDialog.Builder addDialog;
+    private AlertDialog.Builder moreDialog;
     private DatabaseReference todoRef;
+    private boolean completed;
+    private boolean important;
+
+    LayoutInflater inflater;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -65,9 +74,10 @@ public class TodoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        inflater = LayoutInflater.from(getContext());
         recyclerView = view.findViewById(R.id.todo_recycler_view_container);
         addButton = view.findViewById(R.id.add_todo_button);
-        dialog = new AlertDialog.Builder(getContext());
+        addDialog = new AlertDialog.Builder(getContext());
 
         DATABASE.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -75,7 +85,17 @@ public class TodoFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
                 snapshot.getChildren().forEach(e -> {
-                    taskList.add(new Task(e.getKey(), e.child("title").getValue(String.class), e.child("description").getValue(String.class)));
+                    completed = (boolean) e.child("isDone").getValue();
+                    do {
+                        important = (boolean) e.child("important").getValue();
+                    } while (e.child("important").getValue() == null);
+                    String key = e.getKey();
+                    String title = e.child("title").getValue(String.class);
+                    String desc = e.child("description").getValue(String.class);
+                    Task taskToBeAdded = new Task(key, title, desc);
+                    taskToBeAdded.setCompleted(completed);
+                    taskToBeAdded.setImportant(important);
+                    taskList.add(taskToBeAdded);
                 });
                 recyclerView.setAdapter(new TodoListAdapter(taskList, getContext()));
             }
@@ -87,24 +107,24 @@ public class TodoFragment extends Fragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         addButton.setOnClickListener(new View.OnClickListener() {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-//                todoRef.child("title").setValue("jest dzik");
                 title = view.findViewById(R.id.task_title);
                 description = view.findViewById(R.id.task_description);
                 View dialogView = inflater.inflate(R.layout.add_task_dialog, null);
 
-                dialog.setView(dialogView);
+                addDialog.setView(dialogView);
 
-                dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                addDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String titleValue = title.getText().toString();
                         String descriptionValue = description.getText().toString();
+                        boolean importantValue = importantCheckBox.isChecked();
                         todoRef = DATABASE.push();
+                        todoRef.child("isDone").setValue(false);
+                        todoRef.child("important").setValue(importantValue);
                         todoRef.child("title").setValue(titleValue);
                         todoRef.child("description").setValue(descriptionValue);
                         Snackbar.make(recyclerView.findViewById(R.id.todo_recycler_view_container),
@@ -121,8 +141,9 @@ public class TodoFragment extends Fragment {
                 }).create();
                 title = dialogView.findViewById(R.id.task_title);
                 description = dialogView.findViewById(R.id.task_description);
-                dialog.setTitle("Add new To-do task");
-                dialog.show();
+                importantCheckBox = dialogView.findViewById(R.id.task_important_check_box);
+                addDialog.setTitle("Add new To-do task");
+                addDialog.show();
             }
         });
     }
@@ -152,19 +173,72 @@ public class TodoFragment extends Fragment {
             holder.isDone.setChecked(this.todoList.get(position).isCompleted());
             holder.taskTitle.setText(this.todoList.get(position).getTitle());
             holder.taskDescription.setText(this.todoList.get(position).getDescription());
-            String idKey = null;
+
             holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Snackbar.make(recyclerView.findViewById(R.id.todo_recycler_view_container),
-                            "Task done!", Snackbar.LENGTH_SHORT).show();
-                    for (Task x:todoList
-                         ) {
-                        if (x.getTitle().contentEquals(holder.taskTitle.getText()))
-                        {
-                            x.setCompleted(true);
+
+                    if (isChecked) {
+                        Snackbar.make(recyclerView.findViewById(R.id.todo_recycler_view_container),
+                                "Task done!", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(recyclerView.findViewById(R.id.todo_recycler_view_container),
+                                "Task undone.", Snackbar.LENGTH_SHORT).show();
+                    }
+
+                    for (Task x : todoList
+                    ) {
+                        if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
+                            x.setCompleted(!x.isCompleted());
+                            DATABASE.child(x.getTaskId()).child("isDone").setValue(x.isCompleted());
                         }
                     }
+                }
+            });
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View dialogView = inflater.inflate(R.layout.more_info_task_dialog, null);
+                    moreDialog = new AlertDialog.Builder(getContext());
+                    moreDialog.setView(dialogView);
+                    TextView desc = dialogView.findViewById(R.id.more_info_description);
+                    TextView imp = dialogView.findViewById(R.id.more_info_important);
+                    for (Task x : todoList
+                    ) {
+                        if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
+                            desc.setText(x.getDescription());
+                            if (x.isImportant()){
+                                imp.setText("Important task!");
+                            }
+                        }
+                    }
+
+                    moreDialog.setPositiveButton("Mark as done", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            for (Task x : todoList
+                            ) {
+                                if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
+                                    x.setCompleted(!x.isCompleted());
+                                    DATABASE.child(x.getTaskId()).child("isDone").setValue(x.isCompleted());
+                                }
+                            }
+                        }
+                    }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            for (Task x : todoList
+                            ) {
+                                if (holder.taskTitle.toString().contentEquals(holder.taskTitle.getText())) {
+                                    removeTask(x.getTaskId());
+                                }
+                            }
+                        }
+                    }).setNeutralButton("Cancel", (dialog, which) -> {
+
+                    }).setTitle(holder.taskTitle.getText().toString()).create();
+                    moreDialog.show();
                 }
             });
         }
@@ -187,5 +261,10 @@ public class TodoFragment extends Fragment {
                 taskDescription = itemView.findViewById(R.id.todo_list_element_description);
             }
         }
+    }
+
+    public static void removeTask(String name) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("todos");
+        dbRef.child(name).removeValue();
     }
 }
