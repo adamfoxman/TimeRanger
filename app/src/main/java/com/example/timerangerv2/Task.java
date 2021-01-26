@@ -1,15 +1,28 @@
 package com.example.timerangerv2;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-;
+;import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 @Entity(tableName = "tasks")
-public class Task {
+public class Task implements DatabaseReference.CompletionListener {
     @PrimaryKey(autoGenerate = true)
     private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private String taskId;
     private String title;
     private String description;
     private boolean daily;
@@ -29,7 +42,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "id=" + id +
+                "id=" + taskId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", daily=" + daily +
@@ -40,8 +53,9 @@ public class Task {
     }
 
     @Ignore
-    public Task(String title, String description)
+    public Task(String taskId, String title, String description)
     {
+        this.taskId = taskId;
         this.title = title;
         this.description = description;
         this.daily = false;
@@ -50,12 +64,12 @@ public class Task {
         this.completed = false;
     }
 
-    public long getId() {
-        return id;
+    public String getTaskId() {
+        return taskId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getTitle() {
@@ -109,4 +123,9 @@ public class Task {
     public boolean isHabit() { return positive || negative; }
 
     public boolean isTodo() { return !daily && !positive && !negative; }
+
+    @Override
+    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+        System.out.println("XD");
+    }
 }

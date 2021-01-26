@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.timerangerv2.fragments.DailyFragment;
 import com.example.timerangerv2.fragments.HomeFragment;
 import com.example.timerangerv2.fragments.TodoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction()
                                 .setReorderingAllowed(true)
                                 .replace(R.id.fragment_container_main, HomeFragment.class, null)
+                                .commit();
+                        break;
+                    case R.id.bottom_menu_daily:
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragment_container_main, DailyFragment.class, null)
                                 .commit();
                         break;
                     case R.id.bottom_menu_todo:

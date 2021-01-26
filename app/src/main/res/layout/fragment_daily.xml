@@ -9,12 +9,12 @@
     tools:context=".fragments.TodoFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/todo_recycler_view_container"
+        android:id="@+id/daily_recycler_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_todo_button"
+        android:id="@+id/add_daily_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
