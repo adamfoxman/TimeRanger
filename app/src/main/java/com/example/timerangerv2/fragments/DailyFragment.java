@@ -249,7 +249,7 @@ public class DailyFragment extends Fragment {
     }
 
     public static void removeHabit(String name) {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("todos");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("dailies");
         dbRef.child(name).removeValue();
     }
 }

@@ -1,15 +1,44 @@
 
-A
-java:S1068"+Remove this unused "mParam1" private field.(•Íï‘
-l
-java:S1450"VRemove the "mParam2" field and declare it as a local variable in the relevant methods.(¡ˆ€ 
-M
-java:S1135"2Complete the task associated to this TODO comment.(ÜûŠ—øÿÿÿÿ
-M
-java:S1135"2Complete the task associated to this TODO comment.(ğï¢öúÿÿÿÿ
-M
-java:S1135)"2Complete the task associated to this TODO comment.(ßíŠÿÿÿÿÿ
-A
-java:S1068"+Remove this unused "mParam2" private field.(¡ˆ€ 
-l
-java:S1450"VRemove the "mParam1" field and declare it as a local variable in the relevant methods.(•Íï‘
+K
+java:S1604•"(Make this anonymous inner class a lambda(ïĞ™øÿÿÿÿ8ÈË‰ôó.
+R
+java:S2209P"5Change this instance-reference to a static reference.(úÍ†¿8¶Ìêóó.
+V
+java:S1117g"9Rename "title" which hides the field declared at line 47.(ÑšÅŠ8ë°ôó.
+p
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(½ºŠÿ8ÈË‰ôó.
+W
+java:S1068."5Remove this unused "importantCheckBox" private field.(Úè™ñûÿÿÿÿ8ÃÍ„ôó.
+o	java:S1166"SRename this field "DATABASE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñø°²8ï¨ôóó.
+H
+java:S10682"+Remove this unused "todoRef" private field.(§ÄÏ„8ÃÍ„ôó.
+H
+java:S1128%"+Remove this unused import 'java.util.Date'.(¸…¼ü8¢¡ôó.
+F
+java:S1068/")Remove this unused "title" private field.(‚³Ù8ÃÍ„ôó.
+y
+java:S1450+"\Remove the "helloTextView" field and declare it as a local variable in the relevant methods.(´ñ†è8ÃøËôó.
+‰
+java:S3252u"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(“Òšûûÿÿÿÿ8ÈË‰ôó.
+R
+java:S1068-"0Remove this unused "doneCheckBox" private field.(§¨âŸıÿÿÿÿ8ÃÍ„ôó.
+F
+java:S1604«"(Make this anonymous inner class a lambda(Ö¹™º8ÈË‰ôó.
+†
+java:S3252›"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(ß€·‡8ÈË‰ôó.
+Q
+java:S10680"/Remove this unused "description" private field.(Ôƒ‘®ûÿÿÿÿ8ÃÍ„ôó.
+J
+java:S1068,"-Remove this unused "addButton" private field.(”àÃé8ÃÍ„ôó.
+d
+java:S1192e"GDefine a constant instead of duplicating this literal "isDone" 3 times.(öêë»8¸¨ƒôó.
+K
+java:S1604È"(Make this anonymous inner class a lambda(÷ˆùøÿÿÿÿ8ÈË‰ôó.
+K
+java:S1604½"(Make this anonymous inner class a lambda(ñ’ß®üÿÿÿÿ8ÈË‰ôó.
+[
+java:S1128">Remove this unused import 'android.provider.ContactsContract'.(üç§±8¢¡ôó.
+E
+java:S1185?"(Remove this method to simply inherit it.(ßìê¯8ÕæÛóó.
+†
+java:S3252"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".( Îî­8ÈË‰ôó.

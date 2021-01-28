@@ -1,27 +1,42 @@
 
-u
-java:S1450."XRemove the "addButton" field and declare it as a local variable in the relevant methods.(”àÃé8âàÖâó.
-K
-java:S1604œ"(Make this anonymous inner class a lambda(ïĞ™øÿÿÿÿ8¦½ûãó.
-]	java:S125_"<This block of commented-out lines of code should be removed.(°¢³ºûÿÿÿÿ8‚Š×âó.
-D
-java:S1604r"(Make this anonymous inner class a lambda(®µ8‚Š×âó.
-R
-java:S1068/"0Remove this unused "doneCheckBox" private field.(§¨âŸıÿÿÿÿ8á¶ôãó.
-c
-java:S1192N"FDefine a constant instead of duplicating this literal "title" 3 times.(ÏªŞÜ8¬åó.
-„
-java:S3252o"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(œŠ°°8‚Š×âó.
-ƒ
-java:S3252U"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(ÖÃ8€¶‰×ó.
-†
-java:S3252 "hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(ß€·‡8½ıãó.
-J
-java:S1604f"(Make this anonymous inner class a lambda(ñ·ÿÿÿÿÿ8‚Š×âó.
-‰
-java:S3252w"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(’Ì°õıÿÿÿÿ8‚Š×âó.
-I
-java:S1602M",Remove useless curly braces around statement(ÇÏñ¢8ó¹·Öó.
 E
-java:S11856"(Remove this method to simply inherit it.(ßìê¯8âàÖâó.
-n	java:S116*"SRename this field "DATABASE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹¡¦G8ü˜èÕó.
+java:S1604†"(Make this anonymous inner class a lambda(®µ8‚Š×âó.
+l
+java:S1192Z"JDefine a constant instead of duplicating this literal "important" 3 times.(àŠ‡ûÿÿÿÿ8Õ¢óó.
+d
+java:S1192X"GDefine a constant instead of duplicating this literal "isDone" 4 times.(öêë»8ëâˆğó.
+E
+java:S1604w"(Make this anonymous inner class a lambda(ˆ·ù»8‚Š×âó.
+E
+java:S1185@"(Remove this method to simply inherit it.(ßìê¯8âàÖâó.
+†
+java:S3252·"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(ß€·‡8¸ä½ñó.
+R
+java:S10683"0Remove this unused "doneCheckBox" private field.(§¨âŸıÿÿÿÿ8á¶ôãó.
+Š
+java:S3252‹"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(’Ì°õıÿÿÿÿ8‚Š×âó.
+u
+java:S3776¬"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(¹„¬Öÿÿÿÿÿ8ÕôĞğó.
+ƒ
+java:S3252i"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(ÖÃ8€¶‰×ó.
+u
+java:S14502"XRemove the "addButton" field and declare it as a local variable in the relevant methods.(”àÃé8âàÖâó.
+n	java:S116."SRename this field "DATABASE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹¡¦G8ü˜èÕó.
+F
+java:S1604Ç"(Make this anonymous inner class a lambda(Ö¹™º8ëÍ¦ïó.
+K
+java:S1604Ù"(Make this anonymous inner class a lambda(ñ’ß®üÿÿÿÿ8ÕôĞğó.
+K
+java:S1604±"(Make this anonymous inner class a lambda(ïĞ™øÿÿÿÿ8¦½ûãó.
+…
+java:S3252ƒ"gUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_LONG".(œŠ°°8‚Š×âó.
+_
+java:S1128"BRemove this unused import 'com.example.timerangerv2.MainActivity'.(ŞÈæ8²â‰ñó.
+†
+java:S3252º"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".( Îî­8§›¾ñó.
+V
+java:S1117]"9Rename "title" which hides the field declared at line 53.(ÑšÅŠ8Òùïó.
+K
+java:S1604ä"(Make this anonymous inner class a lambda(÷ˆùøÿÿÿÿ8ã×Óğó.
+T
+java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ8ÕôĞğó.

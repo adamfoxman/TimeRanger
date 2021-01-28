@@ -77,7 +77,9 @@ public class HomeFragment extends Fragment {
         inflater = LayoutInflater.from(getContext());
         helloTextView = view.findViewById(R.id.hello_text);
         recyclerView = view.findViewById(R.id.home_recycler_view_container);
-        int currentTime = Calendar.getInstance().HOUR_OF_DAY;
+        Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
+        int currentTime = c.get(Calendar.HOUR_OF_DAY);
         if(currentTime >= 6 && currentTime < 12)
             helloTextView.setText("Good morning!");
         else if(currentTime >= 12 && currentTime < 18)
