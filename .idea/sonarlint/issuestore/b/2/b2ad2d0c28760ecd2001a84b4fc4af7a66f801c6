@@ -1,8 +1,8 @@
 
 €
 java:S1450"cRemove the "bottomNavigationView" field and declare it as a local variable in the relevant methods.(ê¥ÎÚ8ì³Óó.
+X	java:S110"<This class has 9 parents which is greater than 5 authorized.(²Ú±8œò«Óó.
 J
 java:S1604""(Make this anonymous inner class a lambda(õßØµüÿÿÿÿ8·Ğ¶Óó.
-X	java:S110"<This class has 9 parents which is greater than 5 authorized.(²Ú±8œò«Óó.
 g
 java:S1128"JRemove this unused import 'com.google.firebase.database.FirebaseDatabase'.(×Ë—8íÔæÕó.

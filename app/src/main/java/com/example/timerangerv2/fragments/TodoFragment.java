@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,8 @@ import android.widget.TextView;
 import com.example.timerangerv2.MainActivity;
 import com.example.timerangerv2.R;
 import com.example.timerangerv2.Task;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -84,19 +89,24 @@ public class TodoFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
-                snapshot.getChildren().forEach(e -> {
-                    completed = (boolean) e.child("isDone").getValue();
-                    do {
+                String key = null;
+                String title = null;
+                String desc = null;
+                for (DataSnapshot e : snapshot.getChildren()) {
+                    try {
+                        completed = (boolean) e.child("isDone").getValue();
                         important = (boolean) e.child("important").getValue();
-                    } while (e.child("important").getValue() == null);
-                    String key = e.getKey();
-                    String title = e.child("title").getValue(String.class);
-                    String desc = e.child("description").getValue(String.class);
+                        key = e.getKey();
+                        title = e.child("title").getValue(String.class);
+                        desc = e.child("description").getValue(String.class);
+                    } catch (NullPointerException eee) {
+                        continue;
+                    }
                     Task taskToBeAdded = new Task(key, title, desc);
                     taskToBeAdded.setCompleted(completed);
                     taskToBeAdded.setImportant(important);
                     taskList.add(taskToBeAdded);
-                });
+                }
                 recyclerView.setAdapter(new TodoListAdapter(taskList, getContext()));
             }
 
@@ -148,6 +158,8 @@ public class TodoFragment extends Fragment {
         });
     }
 
+
+
     public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder> {
         List<Task> todoList;
         Context mContext;
@@ -165,14 +177,30 @@ public class TodoFragment extends Fragment {
         public TodoListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.todo_list_element, parent, false);
+
             return new TodoListViewHolder(view);
         }
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public void onBindViewHolder(@NonNull TodoListViewHolder holder, int position) {
             holder.isDone.setChecked(this.todoList.get(position).isCompleted());
             holder.taskTitle.setText(this.todoList.get(position).getTitle());
             holder.taskDescription.setText(this.todoList.get(position).getDescription());
+            for (Task x: todoList)
+            {
+                if (x.getTitle().contentEquals(holder.taskTitle.getText()))
+                {
+                    if(x.isImportant())
+                    {
+                        holder.cardView.setCardForegroundColor(ColorStateList.valueOf(R.color.purple_100).withAlpha(35));
+                    }
+                    else
+                    {
+                        holder.cardView.setCardForegroundColor(ColorStateList.valueOf(R.color.purple_100).withAlpha(20));
+                    }
+                }
+            }
 
             holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -214,25 +242,21 @@ public class TodoFragment extends Fragment {
                         }
                     }
 
-                    moreDialog.setPositiveButton("Mark as done", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            for (Task x : todoList
-                            ) {
-                                if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
-                                    x.setCompleted(!x.isCompleted());
-                                    DATABASE.child(x.getTaskId()).child("isDone").setValue(x.isCompleted());
-                                }
+                    moreDialog.setPositiveButton("Mark as done", (dialog, which) -> {
+                        for (Task x : todoList
+                        ) {
+                            if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
+                                x.setCompleted(!x.isCompleted());
+                                DATABASE.child(x.getTaskId()).child("isDone").setValue(x.isCompleted());
                             }
                         }
-                    }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            for (Task x : todoList
-                            ) {
-                                if (holder.taskTitle.toString().contentEquals(holder.taskTitle.getText())) {
-                                    removeTask(x.getTaskId());
-                                }
+                    }).setNegativeButton("Delete", (dialog, which) -> {
+                        for (Task x : todoList
+                        ) {
+                            if (x.getTitle().contentEquals(holder.taskTitle.getText())) {
+                                removeTask(x.getTaskId());
+                                Snackbar.make(recyclerView.findViewById(R.id.todo_recycler_view_container),
+                                        "Task deleted!", Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }).setNeutralButton("Cancel", (dialog, which) -> {
@@ -249,12 +273,15 @@ public class TodoFragment extends Fragment {
         }
 
         private class TodoListViewHolder extends RecyclerView.ViewHolder {
+            private final MaterialCardView cardView;
             private final CheckBox isDone;
             private final TextView taskTitle;
             private final TextView taskDescription;
 
             public TodoListViewHolder(@NonNull View itemView) {
                 super(itemView);
+
+                cardView = itemView.findViewById(R.id.todo_list_card_view);
 
                 isDone = itemView.findViewById(R.id.todo_list_element_is_done);
                 taskTitle = itemView.findViewById(R.id.todo_list_element_title);

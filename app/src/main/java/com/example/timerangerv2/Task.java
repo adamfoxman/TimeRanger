@@ -14,6 +14,14 @@ public class Task implements DatabaseReference.CompletionListener {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
+    public Task() {
+        this.title = null;
+        this.daily = false;
+        this.positive = false;
+        this.negative = false;
+        this.completed = false;
+    }
+
     public long getId() {
         return id;
     }
